@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link rel="stylesheet" href="s.css">
+</head>
+<body>
+   
+    <form action="page2.html" method="get" onsubmit="return validate()" name="form1">
+        <h1>Sign Up Form </h1>
+        <div>
+        <label for="">Username:</label>
+        <input type="text" name="username" id="username" >
+      </div>
+      <div>
+        <label for="">Password:</label>
+        <input type="password" name="password" id="password" > <label style="color: red; display: none;" id="err1">A password should be at least 8 characters </label>
+        <label style="color: red; display: none;" id="err2">A password should include at least one uppercase character and one numeric digit. </label>
+      </div>
+      <div>
+        <label for="">Retype Password:</label>
+        <input type="password" name="retypepassword" id="retypepassword">
+        <label style="color: red; display: none;" id="err3">The two passwords do not match. </label>
+      </div>
+      <div>
+        <label for="">Gender:</label>
+        <input type="radio" name="gender" value="Male" checked>Male
+        <input type="radio" name="gender" value="Female">Female
+      </div>
+      <div>
+        <label for="">Age:</label>
+        <input type="number" id="age" name="age">
+        <label style="color: red; display: none;" id="err4">You should be at least 18 years old to sign up.</label>
+      </div>
+      <div>
+        <label for="">Account Type:</label>
+       <select name="accounttype" id="accounttype">
+        <option value="Professor">Professor</option>
+        <option value="Teaching Assistant">Teaching Assistant</option>
+        <option value="Student" selected>Student</option>
+       </select>
+      </div>
+      <input type="number" id="id1" name="id" style="display: none;">
+      <input type="submit">
+      <hr>
+      <footer>
+      &copy Learn 2020-2021
+      </footer>
+
+
+    </form>  
+    
+    <script>
+        function validate() {
+            var username =document.getElementById("username").value
+            var password = document.forms['form1']['password'].value
+            var repassword = document.forms['form1']['retypepassword'].value
+            var gender =  document.forms['form1']['gender'].value
+            var age =  document.forms['form1']['age'].value
+            var accounttype =  document.forms['form1']['accounttype'].value
+            // console.log(username,password,repassword,gender,age)
+            console.log(username,password,repassword,age)
+            if(!username || !password || !repassword || !age )
+            {
+                console.log(username,password,repassword,age)
+                
+                console.log("lol")
+               alert("All fields must be filled.")
+                return false
+            }
+            if(password.length < 8 )
+            {
+              console.log(password.length)
+              document.getElementById("err1").style.display='inline'
+              document.getElementById("err2").style.display='none'
+              return false
+            }
+            var pattern_1 = /[A-Z]/;
+            var pattern_2 = /[0-9]/;
+            var matches1 = password.match(pattern_1);
+            var matches2 = password.match(pattern_2);
+
+            if(!matches1 || !matches2)
+             {
+                document.getElementById("err2").style.display='inline'
+                document.getElementById("err1").style.display='none'
+                return false
+             }
+            if(password != repassword )
+            {
+                document.getElementById("err3").style.display='inline'
+                return false
+
+            }
+            if(Number(age) <18 ) {
+                document.getElementById("err4").style.display='inline'
+                return false
+            }
+            else {
+                document.getElementById("err4").style.display='none'
+            }
+            if(accounttype == "Professor" && Number(age) < 30) {
+                alert("You must be 30 years or above to register as professor")
+                return false
+            }
+
+            if(accounttype == "Student") {
+                alert("Hello," +username)//
+            }else {
+              var id =  prompt("enter your teaching Id ",0)
+              if(id !=0) {
+                const url = window.location.href;
+                const queryString = window.location.search;
+                console.log(queryString);
+                const urlParams = new URLSearchParams(queryString);
+                // urlParams.append('id',id)
+                // new value of "id" is set to "101"
+                // urlParams.set('id', id);
+                document.getElementById("id1").value=id
+//                 url.search = urlParam.toString();
+
+// // the new url string
+// var new_url = url.toString();
+// window.location.replace (new_url);
+                return true
+              }
+            }
+            
+
+
+
+
+            return true;
+        }
+
+
+    </script>
+</body>
+</html>
